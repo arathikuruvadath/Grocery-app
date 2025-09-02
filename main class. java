@@ -1,0 +1,115 @@
+import java.util.Scanner;
+
+public class GroceryMain {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        GroceryShop shop = new GroceryShop();
+        int choice;
+
+        do {
+            System.out.println("\n=== Grocery Shop Management ===");
+            System.out.println("1. Admin Mode");
+            System.out.println("2. Customer Mode");
+            System.out.println("0. Exit");
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    adminMenu(shop, sc);
+                    break;
+                case 2:
+                    customerMenu(shop, sc);
+                    break;
+                case 0:
+                    System.out.println("Exiting program...");
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        } while (choice != 0);
+    }
+
+    // Admin menu
+    private static void adminMenu(GroceryShop shop, Scanner sc) {
+        int choice;
+        do {
+            System.out.println("\n--- Admin Menu ---");
+            System.out.println("1. Add Product");
+            System.out.println("2. Update Product");
+            System.out.println("3. Delete Product");
+            System.out.println("4. List Products");
+            System.out.println("0. Back");
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter ID: ");
+                    int id = sc.nextInt();
+                    sc.nextLine(); // consume newline
+                    System.out.print("Enter Name: ");
+                    String name = sc.nextLine();
+                    System.out.print("Enter Price: ");
+                    double price = sc.nextDouble();
+                    System.out.print("Enter Quantity: ");
+                    int qty = sc.nextInt();
+                    shop.addProduct(new Product(id, name, price, qty));
+                    break;
+                case 2:
+                    System.out.print("Enter Product ID to update: ");
+                    int uid = sc.nextInt();
+                    sc.nextLine();
+                    System.out.print("Enter New Name: ");
+                    String uname = sc.nextLine();
+                    System.out.print("Enter New Price: ");
+                    double uprice = sc.nextDouble();
+                    System.out.print("Enter New Quantity: ");
+                    int uqty = sc.nextInt();
+                    shop.updateProduct(uid, uname, uprice, uqty);
+                    break;
+                case 3:
+                    System.out.print("Enter Product ID to delete: ");
+                    int did = sc.nextInt();
+                    shop.deleteProduct(did);
+                    break;
+                case 4:
+                    shop.listProducts();
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        } while (choice != 0);
+    }
+
+    // Customer menu
+    private static void customerMenu(GroceryShop shop, Scanner sc) {
+        int choice;
+        do {
+            System.out.println("\n--- Customer Menu ---");
+            System.out.println("1. View Products");
+            System.out.println("2. Search Product");
+            System.out.println("0. Back");
+            System.out.print("Enter choice: ");
+            choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    shop.listProducts();
+                    break;
+                case 2:
+                    sc.nextLine();
+                    System.out.print("Enter product name to search: ");
+                    String sname = sc.nextLine();
+                    shop.searchProduct(sname);
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
+        } while (choice != 0);
+    }
+}
