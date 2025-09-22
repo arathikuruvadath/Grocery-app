@@ -83,7 +83,7 @@ public class GroceryMain {
         } while (choice != 0);
     }
 
-    // Customer menu
+    
     private static void customerMenu(GroceryShop shop, Scanner sc) {
         int choice;
         do {
