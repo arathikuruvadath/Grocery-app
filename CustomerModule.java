@@ -1,8 +1,21 @@
 import java.util.*;
 
+class Product {
+    int id;
+    String name;
+    double price;
+    int quantity;
+
+    public Product(int id, String name, double price, int quantity) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
+}
+
 public class CustomerModule {
     static Scanner sc = new Scanner(System.in);
-
 
     static ArrayList<Product> products = new ArrayList<>(Arrays.asList(
         new Product(101, "Rice", 55.5, 10),
@@ -18,13 +31,24 @@ public class CustomerModule {
             System.out.println("3. View Product Details");
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
-            int choice = sc.nextInt();
+            
+            int choice;
+            try {
+                choice = sc.nextInt();
+            } catch (InputMismatchException e) {
+                sc.nextLine(); // clear buffer
+                System.out.println("Invalid input! Please enter a number.");
+                continue;
+            }
 
             switch (choice) {
                 case 1 -> viewProducts();
                 case 2 -> searchProduct();
                 case 3 -> productDetails();
-                case 0 -> { System.out.println("Exiting..."); return; }
+                case 0 -> {
+                    System.out.println("Exiting...");
+                    return;
+                }
                 default -> System.out.println("Invalid choice!");
             }
         }
@@ -33,12 +57,12 @@ public class CustomerModule {
     static void viewProducts() {
         System.out.println("\n--- Available Products ---");
         for (Product p : products) {
-            System.out.println(p.id + " | " + p.name + " | " + p.price + "  Rs | Stock: " + p.quantity);
+            System.out.println(p.id + " | " + p.name + " | ₹" + p.price + " | Stock: " + p.quantity);
         }
     }
 
     static void searchProduct() {
-        sc.nextLine();
+        sc.nextLine(); // consume newline
         System.out.print("Enter product name keyword: ");
         String keyword = sc.nextLine().toLowerCase();
         boolean found = false;
@@ -48,7 +72,9 @@ public class CustomerModule {
                 found = true;
             }
         }
-        if (!found) System.out.println("No matching product found!");
+        if (!found) {
+            System.out.println("No matching product found!");
+        }
     }
 
     static void productDetails() {
@@ -67,4 +93,3 @@ public class CustomerModule {
         System.out.println("Product not found!");
     }
 }
-
