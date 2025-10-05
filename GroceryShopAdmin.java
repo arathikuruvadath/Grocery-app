@@ -41,7 +41,6 @@ class Shop {
     }
 }
 
-// ---------------------- MAIN ADMIN APP ----------------------
 public class GroceryShopAdmin {
     static List<Shop> shops = new ArrayList<>();
 
